@@ -1,8 +1,7 @@
-on: [push, pull_request, release]
-
-  #schedule:
-  #   - cron: "30 15 * * *"
-  #workflow_dispatch:
+on:
+  schedule:
+   - cron: "*/1 * * * *"
+  workflow_dispatch:
 name: Download Extract IP2LOC 
 
 jobs:
