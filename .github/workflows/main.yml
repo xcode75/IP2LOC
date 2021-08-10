@@ -1,6 +1,9 @@
 on:
+  push:
+    branches: 
+      - master
   schedule:
-   - cron: "*/1 * * * *"
+    - cron: "1 * * * *"
   workflow_dispatch:
 name: Download Extract IP2LOC 
 
