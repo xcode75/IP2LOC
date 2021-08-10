@@ -15,13 +15,13 @@ jobs:
         sudo apt update -y
         sudo apt -y install unzip wget
         cd ip2loc
+        
         wget -O DB11.zip https://www.ip2location.com/download/?token=${{ secrets.IP2LOCTOKEN }}\&file=DB11LITEBINIPV6 2>&1
-        unzip DB11
-        rm -rf *.TXT
+        cd ip2loc && unzip DB11 && rm -rf *.TXT
         mv IP2LOCATION-LITE-DB11.IPV6.BIN IPS.BIN
+        
         wget -O ASN.zip https://www.ip2location.com/download/?token=${{ secrets.IP2LOCTOKEN }}\&file=DBASNLITEIPV6 2>&1
-        unzip ASN
-        rm -rf *.TXT
+        cd ip2loc &&  unzip ASN && rm -rf *.TXT
         mv IP2LOCATION-LITE-ASN.IPV6.CSV ASN.CSV
         
     - name: Git push assets to "IP2LOC" branch
