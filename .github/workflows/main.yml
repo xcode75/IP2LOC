@@ -3,7 +3,7 @@ on:
     branches: 
       - master
   schedule:
-    - cron: "1 * * * *"
+    - cron: "30 15 * * *"
   workflow_dispatch:
 name: Download Extract IP2LOC 
 
@@ -17,8 +17,8 @@ jobs:
         sudo apt update -y
         sudo apt -y install unzip wget
         cd ip2loc
-        wget  https://www.ip2location.com/download/?token=${{ secrets.IP2LOCTOKEN }}\&file=DB11LITEBINIPV6 2>&1
-        wget  https://www.ip2location.com/download/?token=${{ secrets.IP2LOCTOKEN }}\&file=DBASNLITEIPV6 2>&1
+        wget -O IPS.zip https://www.ip2location.com/download/?token=${{ secrets.IP2LOCTOKEN }}\&file=DB11LITEBINIPV6 2>&1
+        wget -O ASN.zip  https://www.ip2location.com/download/?token=${{ secrets.IP2LOCTOKEN }}\&file=DBASNLITEIPV6 2>&1
         
     - name: Git push assets to "IP2LOC" branch
       run: |
