@@ -17,8 +17,8 @@ jobs:
         sudo apt update -y
         sudo apt -y install unzip wget
         cd ip2loc
-        wget -O DB11.zip https://www.ip2location.com/download/?token=${{ secrets.IP2LOCTOKEN }}\&file=DB11LITEBINIPV6 2>&1
-        wget -O ASN.zip https://www.ip2location.com/download/?token=${{ secrets.IP2LOCTOKEN }}\&file=DBASNLITEIPV6 2>&1
+        wget  https://www.ip2location.com/download/?token=${{ secrets.IP2LOCTOKEN }}\&file=DB11LITEBINIPV6 2>&1
+        wget  https://www.ip2location.com/download/?token=${{ secrets.IP2LOCTOKEN }}\&file=DBASNLITEIPV6 2>&1
         
     - name: Git push assets to "IP2LOC" branch
       run: |
