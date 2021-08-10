@@ -1,0 +1,37 @@
+on: [push, pull_request, release]
+
+  #schedule:
+  #   - cron: "30 15 * * *"
+  #workflow_dispatch:
+name: Download Extract IP2LOC 
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+    steps:
+    - name: Download Extract  IP2LOCATION-LITE
+      run: |
+        mkdir -p ip2loc 
+        sudo apt update -y
+        sudo apt -y install unzip wget
+        cd ip2loc
+        wget -O DB11.zip https://www.ip2location.com/download/?token=${{ secrets.IP2LOCTOKEN }}\&file=DB11LITEBINIPV6 2>&1
+        unzip DB11
+        rm -rf *.TXT
+        mv IP2LOCATION-LITE-DB11.IPV6.BIN IPS.BIN
+        wget -O ASN.zip https://www.ip2location.com/download/?token=${{ secrets.IP2LOCTOKEN }}\&file=DBASNLITEIPV6 2>&1
+        unzip ASN
+        rm -rf *.TXT
+        mv IP2LOCATION-LITE-ASN.IPV6.CSV ASN.CSV
+        
+    - name: Git push assets to "IP2LOC" branch
+      run: |
+        cd ip2loc
+        git init
+        git config --local user.name "actions"
+        git config --local user.email "action@github.com"
+        git checkout -b IP2LOC
+        git add .
+        git commit -m "Update IP2LOC"
+        git remote add origin "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}"
+        git push -f -u origin IP2LOC
